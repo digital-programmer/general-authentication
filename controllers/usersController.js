@@ -16,6 +16,7 @@ module.exports.signIn = (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect("/");
     }
+
     return res.render("user_signin", {
         title: "Sign In",
     });
@@ -39,6 +40,7 @@ module.exports.create = function (req, res) {
                     console.log("Error in signing up user");
                     return;
                 }
+                req.flash('success', 'Account Created Successfully');
                 return res.redirect("/users/sign-in");
             });
         } else {
@@ -59,6 +61,6 @@ module.exports.createSession = function (req, res) {
 // exit user session
 module.exports.destroySession = function (req, res) {
     req.logout();
-    req.flash('success', 'You have logged out');
+    req.flash('success', 'Logged out successfully');
     return res.redirect('/users/sign-in');
 }

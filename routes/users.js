@@ -12,4 +12,17 @@ router.post("/create-session", passport.authenticate("local", { failureRedirect:
 // passport to destroy session
 router.get("/sign-out", usersController.destroySession);
 
+
+// for google auth
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: "/users/sign-in" }), usersController.createSession);
+
+// for facebook auth
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: "/users/sign-in" }), usersController.createSession);
+
+// for twitter auth
+router.get('/auth/twitter', passport.authenticate('twitter', { scope: ['email', 'public_profile'] }));
+router.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: "/users/sign-in" }), usersController.createSession);
+
 module.exports = router;
