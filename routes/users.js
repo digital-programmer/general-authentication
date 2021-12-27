@@ -21,8 +21,4 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: "/users/sign-in" }), usersController.createSession);
 
-// for twitter auth
-router.get('/auth/twitter', passport.authenticate('twitter', { scope: ['email', 'public_profile'] }));
-router.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: "/users/sign-in" }), usersController.createSession);
-
 module.exports = router;

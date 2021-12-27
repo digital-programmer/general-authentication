@@ -13,7 +13,6 @@ const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 const passportGoogle = require("./config/passport-google-oauth2-strategy");
 const passportFacebook = require("./config/passport-facebook-strategy");
-const passportTwitter = require("./config/passport-twitter-strategy");
 const MongoStore = require('connect-mongo');
 const customWare = require("./config/middleware");
 
