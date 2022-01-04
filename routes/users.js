@@ -21,4 +21,10 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: "/users/sign-in" }), usersController.createSession);
 
+
+// To reset password
+router.get("/reset-password", usersController.resetPassword);
+router.post("/reset-password", usersController.setNewPassword);
+
+
 module.exports = router;
