@@ -1,10 +1,10 @@
 const nodemailer = require("../config/nodemailer");
 
-exports.newPassword = (user) => {
-    let htmlString = nodemailer.renderTemplate({ user }, "/forgot_password/new_pass.ejs");
+exports.newPassword = (data) => {
+    let htmlString = nodemailer.renderTemplate({ user: data.user, password: data.password }, "/forgot_password/new_pass.ejs");
     nodemailer.transporter.sendMail({
         from: process.env.MAIL_USER,
-        to: user.email,
+        to: data.user.email,
         subject: "Here's your new Password",
         html: htmlString
     }, (err, info) => {

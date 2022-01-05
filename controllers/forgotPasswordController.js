@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const passwordMailer = require("../mailers/password-mailer");
 const commentEmailWorker = require("../workers/forgot_password_email_worker");
 const queue = require("../config/kue");
+const bcryptSalt = process.env.BCRYPT_SALT;
 
 module.exports.index = function (req, res) {
     return res.render('forgot_pass', {
@@ -21,7 +22,7 @@ module.exports.sendPassword = function (req, res) {
             }
 
             if (user) {
-                let newPassword = crypto.randomBytes(32).toString("hex");
+                let newPassword = crypto.randomBytes(12).toString("hex");
                 const hash = await bcrypt.hash(newPassword, Number(bcryptSalt));
 
                 let job = queue.create('emails', { user, password: newPassword }).save(function (err) {
@@ -34,7 +35,7 @@ module.exports.sendPassword = function (req, res) {
                 user.password = hash;
                 user.save();
                 req.logout();
-                req.flash('success', 'New Password sent..');
+                req.flash('success', 'New Password sent. Check your mail');
                 return res.redirect('/users/sign-in');
 
             } else {
