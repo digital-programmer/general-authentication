@@ -6,6 +6,7 @@ const env = require('./config/environment');
 const logger = require("morgan");
 const flash = require('connect-flash');
 const db = require("./config/mongoose");
+const client = require("./config/redis-config");
 const app = express();
 const port = process.env.PORT || 8000;
 
