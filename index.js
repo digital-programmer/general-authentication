@@ -5,7 +5,7 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require('connect-flash');
 const db = require("./config/mongoose");
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 // used for session cookie
 const session = require('express-session');
@@ -43,7 +43,7 @@ app.use(session({
     },
     store: MongoStore.create(
         {
-            client: db.getClient(),
+            client: process.env.DB_URL,
             autoRemove: 'disabled',
         },
         function (err) {
