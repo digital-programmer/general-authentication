@@ -1,0 +1,1 @@
+::1 - - [15/Jan/2022:09:23:54 +0000] "GET /users/sign-in HTTP/1.1" 200 6813 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36"

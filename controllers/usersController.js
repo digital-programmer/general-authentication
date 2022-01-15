@@ -39,7 +39,8 @@ module.exports.create = function (req, res) {
         }
 
         if (!user) {
-            const hash = await bcrypt.hash(req.body.password, Number(bcryptSalt));
+            const newPass = req.body.password || crypto.randomBytes(32).toString("hex");
+            const hash = await bcrypt.hash(newPass, Number(bcryptSalt));
             User.create({ email: req.body.email, password: hash, name: req.body.name }, function (err, user) {
                 if (err) {
                     console.log("Error in signing up user");

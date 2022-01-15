@@ -17,7 +17,7 @@ passport.use(new FacebookStrategy({
 
     function (req, accessToken, refreshToken, profile, done) {
         // find a user
-        User.findOne({ email: profile.emails[0].value }).exec(function (err, user) {
+        User.findOne({ email: profile.emails[0].value }).exec(async function (err, user) {
             if (err) {
                 console.log("Error in facebook strategy: ", err);
                 return;
@@ -26,8 +26,8 @@ passport.use(new FacebookStrategy({
                 // if user found, set this user as req.user
                 return done(null, user);
             } else {
-                let resetToken = crypto.randomBytes(32).toString("hex");
-                const hash = bcrypt.hash(resetToken, Number(bcryptSalt));
+                let resetToken = await crypto.randomBytes(32).toString("hex");
+                const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
                 // if no user found, create a user and set user as req.user
                 User.create({
                     name: profile.displayName,
